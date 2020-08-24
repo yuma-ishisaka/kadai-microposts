@@ -12,6 +12,20 @@
         <div>
           <% if current_user == micropost.user %>
             <%= link_to "Delete", micropost, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %>
+          <% else %>
+              <div id="favo-btn-<%= micropost.id %>">
+              <% if current_user.favorite?(micropost) %>
+                <%= link_to micropost_favorites_path(micropost), method: :delete do %>
+                 <i class="fas fa-heart unfavo-btn"></i>
+                <% end %>
+                <%= micropost.favorites.count %>
+              <% else %>
+                <%= link_to  micropost_favorites_path(micropost), method: :post do %>
+                <i class="far fa-heart favo-btn"></i>
+                <% end %>
+                <%= micropost.favorites.count %>
+              <% end %>
+            </div>
           <% end %>
         </div>
       </div>
